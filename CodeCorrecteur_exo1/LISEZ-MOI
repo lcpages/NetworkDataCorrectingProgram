@@ -1,0 +1,57 @@
+                          TP Noté de RLI
+    Université de Strasbourg - informatiques 3ième années
+-------------------------------------------------------------------
+Ce programme simule un échange donné (un message) entre un client "sending.c"
+et receveur "receiving". Le fichier medium.c permet d'introduire plusieurs
+types d'erreurs.
+
+Exercice 1 :
+
+****   coding.c ****
+Fcnt computectrlbits (CodeWord t *message,  int size msg)
+
+On parcourt le tout le message de 8 bits pour calculer le nombre de 1 afin
+de pouvoir appliquer le bit de parité au 9ième bits (unique bit de contrôle).
+
+**** decoding.c *****
+Fcnt thereiserror(CodeWord t *Cw, int data size)
+
+On réalise la même opération de parcours dans le message reçu avec le même
+calcul.Si le nombre de 1 est pair et que le bit de contrôle n'est pas initié
+alors il y a une erreur. Si le nombre est impair et que ce bit est initié alors
+il y a aussi une erreur.
+
+Exercice 2 :
+
+**** coding.c ****
+
+À l'aide d'une fonction polynomiale prédéfinie (X^8 + X^4 + X^3+X^2+1),
+on multiplie par le monôme du plus au degré du polynôme générateur le message
+à coder. Opération Ensuite on détermine le reste à appliquer au message à
+envoyer en faisant la division binaire du message avec G.
+
+**** decoding.c*****
+
+Pour chaque mot du message (16 bits) on effectue sa division binaire avec le
+même polynôme générateur. Si le reste n'est pas égal à 0 alors il y a eu une
+erreure transmission.
+
+Exercice 3 :
+
+**** coding.c ****
+
+On initie notre matrice génératrice. Puis pour chaque mot du message (16 bits)
+on calcule le produit de ce message par la matrice dans la variable res_t.
+On remplace ensuite le message original par ce résultat.
+
+**** decoding.c *****
+
+Avec la matrice de contrôle, on vérifie que les messages
+reçus ont été générer par la matrice génératrice. Sinon alors il y a une
+erreure.On compare la valeur du vecteur reçu et vérifie à quel vecteur de
+la matrice de contrôle il correspond pour déterminer quel bit est faux.
+ 	88		switch(res t){
+    ...
+Une fois l'erreur corrigée on récupére uniquement les xi-bits correspondants aux
+vecteurs d'info dans notre matrice génératrice.
+Le message est décripté .
